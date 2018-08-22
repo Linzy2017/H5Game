@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="css/reset.css" rel="stylesheet">
+    <script src="js/adaptive.js"></script>
+    <script>
+        window['adaptive'].desinWidth = 640;
+        window['adaptive'].baseFont = 24;
+        window['adaptive'].scaleType = 1;
+        window['adaptive'].init();
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>pushBox</title>
+    <style>
+        body, #containter{
+            width: 6.4rem;
+            height: 100vh;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="containter"></div>
+<script src="js/pixi.min.js"></script>
+<script>
+    //分辨率适配比率
+    let windowBase = window['adaptive'].newBase
+
+    //屏幕高度
+    let screenHeight = document.documentElement.clientHeight || document.body.clientHeight
+
+    //别名
+    let Application = PIXI.Application,
+        Container = PIXI.Container,
+        loader = PIXI.loader,
+        resources = PIXI.loader.resources,
+        Graphics = PIXI.Graphics,
+        TextureCache = PIXI.utils.TextureCache,
+        Sprite = PIXI.Sprite,
+        Text = PIXI.Text,
+        TextStyle = PIXI.TextStyle
+
+    //Create a Pixi Application
+    let app = new Application({
+            width: 6.4 * windowBase,
+            height: screenHeight,
+            antialiasing: true,
+            transparent: false,
+            resolution: 1
+        }
+    )
+    let snake = [
+        {
+            x: 5 * windowBase,
+            y: 5 * windowBase,
+        },
+        {
+            x: 5 * windowBase + 0.4 * windowBase,
+            y: 5 * windowBase,
+        },
+        {
+            x: 5 * windowBase + 0.4 * windowBase + 0.4 * windowBase,
+            y: 5 * windowBase,
+        }
+    ]
+    document.getElementById('containter').appendChild(app.view);
+
+    loader
+        .add("images/treasureHunter.json")
+        .load(setup);
+
+    let explorerArr = []
+    let old = []
+    let snakeV = 20
+    let snakeTimer = 0
+    let xV = 1,yV = 0
+    let dungeon, food
+    let hit = false
+    function setup() {
+        gameScene = new Container();
+        app.stage.addChild(gameScene);
+
+        //Make the sprites and add them to the `gameScene`
+        //Create an alias for the texture atlas frame ids
+        id = resources["images/treasureHunter.json"].textures;
+
+        //Dungeon
+        dungeon = new Sprite(id["dungeon.png"])
+        dungeon.width = 6.4 * windowBase
+        dungeon.height = screenHeight
+        dungeon.x = 0
+        dungeon.y = 0
+        gameScene.addChild(dungeon);
+
+        //Explorer
+        for (let i in snake) {
+            let explorer = new Sprite(id["explorer.png"]);
+            explorer.width = 0.4 * windowBase
+            explorer.height = 0.4 * windowBase
+            explorer.x = snake[i].x;
+            explorer.y = snake[i].y;
+            explorerArr.push(explorer)
+            gameScene.addChild(explorer);
+        }
+
+
+        //Dungeon
+        food = new Sprite(id["blob.png"])
+        food.width = 0.2 * windowBase
+        food.height = 0.2 * windowBase
+        food.x = 25
+        food.y = 25
+        gameScene.addChild(food);
+
+        app.ticker.add((delta) => gameLoop(delta));
+
+    }
+    let moveState = false
+    function gameLoop(delta) {
+        moveState = true
+        snakeTimer++
+        if (snakeTimer === snakeV) {
+            snakeTimer = 0
+            contain(explorerArr[0], {
+                x: .8 * windowBase,
+                y:  1 * windowBase,
+                width: 5.6 * windowBase,
+                height: screenHeight - 1.1 * windowBase
+            })
+            old = snake.slice(0)
+            explorerArr[0].x -= 0.4 * windowBase * xV
+            explorerArr[0].y -= 0.4 * windowBase * yV
+            for(let i = 1,length = explorerArr.length; i < length; i++) {
+                explorerArr[i].x  = old[i-1].x
+                explorerArr[i].y  = old[i-1].y
+            }
+            for(let i = 0,length = explorerArr.length; i < length; i++) {
+                snake[i].x  = explorerArr[i].x
+                snake[i].y  = explorerArr[i].y
+            }
+            moveState = false
+        }
+    }
+    document.onkeydown = function (event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if(e && e.keyCode === 38){ // 按 shang
+            console.log('上')
+            if (xV === 0 && yV === -1 && moveState){
+
+            } else {
+                xV = 0
+                yV = 1
+            }
+        }
+        if(e && e.keyCode === 40){ // 按 xia
+            console.log('下')
+            if (xV === 0 && yV === 1 && moveState) {
+
+            } else{
+                console.log('do bottom')
+                xV = 0
+                yV = -1
+            }
+        }
+        if(e && e.keyCode === 37){ // zuo
+            console.log('左')
+            if (xV === -1 && yV === 0 && moveState) {
+
+            } else {
+                console.log('do left')
+                xV = 1
+                yV = 0
+            }
+        }
+        if (e.keyCode === 39) { // you
+            console.log('右')
+            if (xV === 1 && yV === 0 && moveState) {
+
+            } else {
+                console.log('do right')
+                xV = -1
+                yV = 0
+            }
+        }
+    };
+    function contain(sprite, container) {
+
+        let collision = undefined;
+
+        //Left
+        if (sprite.x < container.x) {
+            sprite.x = container.x;
+            collision = "left";
+        }
+
+        //Top
+        if (sprite.y < container.y) {
+            sprite.y = container.y;
+            collision = "top";
+        }
+
+        //Right
+        if (sprite.x + sprite.width > container.width) {
+            sprite.x = container.width - sprite.width;
+            collision = "right";
+        }
+
+        //Bottom
+        if (sprite.y + sprite.height > container.height) {
+            sprite.y = container.height - sprite.height;
+            collision = "bottom";
+        }
+
+        //Return the `collision` value
+        return collision;
+    }
+</script>
+</body>
+</html>
