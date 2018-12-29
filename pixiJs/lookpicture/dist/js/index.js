@@ -7,7 +7,7 @@ const Application = PIXI.Application,
     Sprite = PIXI.Sprite,
     Text = PIXI.Text
 const BG_W = 640,
-       BG_H = 17957
+      BG_H = 17718
 let BG_vy = 2 //屏幕位移速度
 let masterSwitch = true, //总开关
     touchSwitch = false
@@ -15,13 +15,12 @@ let btn_move = $('#btn_move');
 const imagesGroup = [
     'images/bg.jpg',
     'images/bg-far.png',
-    'images/girl.png',
     'images/scene1_bg.jpg',
     'images/txt_01.png',
     'images/txt_02.png',
     'images/txt_03.png',
     'images/txt_04.png',
-    'images/txt_05.png',
+    'images/txt_sys.png',
     'images/people1.png',
     'images/people2.png',
     'images/solider_a_1.png',
@@ -72,6 +71,36 @@ const imagesGroup = [
     'images/test.gif',
     'images/light_1.png',
     'images/light_2.png',
+    'images/solider_b.png',
+    'images/ship_fl_1.png',
+    'images/ship_fl_2.png',
+    'images/ship_fl_3.png',
+    'images/ppl_yellow_1.png',
+    'images/ppl_yellow_2.png',
+    'images/s_a_1.png',
+    'images/s_a_2.png',
+    'images/s_b_1.png',
+    'images/s_b_2.png',
+    'images/nnns_a_1.png',
+    'images/nnns_a_2.png',
+    'images/nnns_a_3.png',
+    'images/nnns_a_4.png',
+    'images/nnns_a_5.png',
+    'images/ns_b_1.png',
+    'images/ns_b_2.png',
+    'images/ns_b_3.png',
+    'images/ns_b_4.png',
+    'images/ns_c_1.png',
+    'images/ns_c_2.png',
+    'images/ns_c_3.png',
+    'images/ns_c_4.png',
+    'images/ns_c_5.png',
+    'images/light_byg_1.png',
+    'images/light_byg_2.png',
+    'images/light_end_1.png',
+    'images/light_end_2.png',
+    'images/light_jjch_1.png',
+    'images/light_jjch_2.png',
 ]
 let sound01 = new Howl({
     src: 'mp3/1.mp3',
@@ -114,14 +143,30 @@ let sound08 = new Howl({
 });
 
 let sound09 = new Howl({
-    src: 'mp3/10.mp3',
+    src: 'mp3/9.mp3',
     preload: true
 });
 
 let sound10 = new Howl({
+    src: 'mp3/10.mp3',
+    preload: true
+});
+
+let sound11 = new Howl({
     src: 'mp3/11.mp3',
     preload: true
 });
+
+let sound12 = new Howl({
+    src: 'mp3/12.mp3',
+    preload: true
+});
+
+let sound13 = new Howl({
+    src: 'mp3/13.mp3',
+    preload: true
+});
+
 
 let screen_H = $(window).height() //屏幕高度
 let screen_W = 640 * window.adaptive.newBase / 100 //屏幕宽度
@@ -158,6 +203,12 @@ let isLoad = false; //图片是否加载完毕
 $(function () {
    progressInit();
    init();
+    wxShare({
+        title: '告别2018，全新2019，为传奇，肃然起敬',
+        desc: '元旦特辑 | 跨越100年，致敬城市传奇人物摘要：告别2018，全新2019，为传奇，肃然起敬',
+        image: 'http://baoyugang.anniecathy.com/images/share.jpg',
+        link: window.location.href,
+    });
 });
 
 function init() {
@@ -300,18 +351,20 @@ function listenMove() {
 
     //士兵开火
     if (con_bg.position.y == - 800 * scale) {
-        let movieClip = _createAnimateSprite(['images/people1.png', 'images/people2.png'], {
+        let movieClip = _createAnimateSprite(['images/nnns_a_1.png', 'images/nnns_a_2.png','images/nnns_a_3.png','images/nnns_a_4.png','images/nnns_a_5.png'], {
             x: -100,
             y: 1660,
             alpha: 0
         })
+        movieClip.animationSpeed = parseFloat((10 / 90).toFixed(2))
         con_bg.addChild(movieClip)
 
-        let movieClip2 = _createAnimateSprite(['images/solider_a_1.png', 'images/solider_a_2.png'], {
+        let movieClip2 = _createAnimateSprite(['images/ns_b_1.png', 'images/ns_b_2.png', 'images/ns_b_3.png', 'images/ns_b_4.png'], {
             x: 640,
             y: 1660,
             alpha: 0
         })
+        movieClip2.animationSpeed = parseFloat((10 / 90).toFixed(2))
         con_bg.addChild(movieClip2)
 
         let movieClip3 = _createSprite('images/gun_fire.png', {
@@ -321,23 +374,48 @@ function listenMove() {
         })
         con_bg.addChild(movieClip3)
 
+        let movieClip4 = _createAnimateSprite(['images/s_a_1.png', 'images/s_a_2.png'], {
+            x: -200,
+            y: 2005,
+            alpha: 0
+        })
+        con_bg.addChild(movieClip4)
+
+        let movieClip5 = _createAnimateSprite(['images/ns_c_1.png', 'images/ns_c_2.png', 'images/ns_c_3.png', 'images/ns_c_4.png', 'images/ns_c_5.png'], {
+            x: 700,
+            y: 2045,
+            alpha: 0
+        })
+        movieClip5.animationSpeed = parseFloat((10 / 90).toFixed(2))
+        con_bg.addChild(movieClip5)
+
         new TWEEN.Tween(movieClip).to({
-            x :65 * scale,
+            x :75 * scale,
             alpha: 1
-        }).start().
+        },2000).start().
         onStart(function() {
             //动画开始回调
             sound01.play()
         })
 
         new TWEEN.Tween(movieClip2).to({
-            x :380 * scale,
+            x :350 * scale,
             alpha: 1
-        }).start()
+        },2000).start()
 
         new TWEEN.Tween(movieClip3).to({
             alpha: 1
         }).delay(1000).start()
+
+        new TWEEN.Tween(movieClip4).to({
+            x :85 * scale,
+            alpha: 1
+        },2000).delay(2000).start()
+
+        new TWEEN.Tween(movieClip5).to({
+            x :380 * scale,
+            alpha: 1
+        },2000).delay(2000).start()
     }
 
 
@@ -405,34 +483,54 @@ function listenMove() {
         })
         con_bg.addChild(movieClip)
 
+        let movieClip2 = _createSprite('images/solider_b.png', {
+            x: -50,
+            y: 3300,
+            alpha: 0.01,
+        })
+        con_bg.addChild(movieClip2)
+
+        new TWEEN.Tween(movieClip2)
+            .to({
+                alpha: 1,
+                x:60 * scale
+            },2000).start()
+
         new TWEEN.Tween(movieClip)
             .to({
                 alpha: 1,
                 y:3210 * scale
-            },2000).start()
+            },2000).delay(1300).start()
 
 
     }
 
     //元宝
-    if (con_bg.position.y == - 4000 * scale) {
+    if (con_bg.position.y == - 3400 * scale) {
 
         let movieClip = _createSprite('images/ico_money.png', {
             x: 96,
-            y: 4415,
+            y: 3815,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip)
+
+        let movieClip2 = _createAnimateSprite(['images/light_jjch_1.png', 'images/light_jjch_2.png'], {
+            x: 420,
+            y: 4350,
+            alpha: 0
+        })
+        con_bg.addChild(movieClip2)
 
         new TWEEN.Tween(movieClip)
             .to({
                 alpha: 1,
                 y:4515 * scale
-            },2000).start()
+            },3500).start()
     }
 
     //黑船
-    if (con_bg.position.y == - 4100 * scale) {
+    if (con_bg.position.y == - 3900 * scale) {
 
         let movieClip = _createAnimateSprite(['images/ship_black_a_1.png', 'images/ship_black_a_2.png'], {
             x: 640,
@@ -468,7 +566,7 @@ function listenMove() {
     }
 
     //白船
-    if (con_bg.position.y == - 4600 * scale) {
+    if (con_bg.position.y == - 4400 * scale) {
 
 
         let movieClip = _createAnimateSprite(['images/ship_white_a_1.png', 'images/ship_white_a_2.png'], {
@@ -490,16 +588,17 @@ function listenMove() {
                 alpha: 1,
                 x:75 * scale
             },2000).start()
+            .onStart(function() {
+                //动画开始回调
+                sound04.play()
+            })
 
         new TWEEN.Tween(movieClip2)
             .to({
                 alpha: 1,
                 y:5542 * scale
             },2000).delay(1000).start()
-            .onStart(function() {
-                //动画开始回调
-                sound04.play()
-            })
+
 
     }
 
@@ -530,11 +629,31 @@ function listenMove() {
         })
         con_bg.addChild(movieClip)
 
+        let movieClip2 = _createAnimateSprite(['images/ship_fl_1.png', 'images/ship_fl_2.png', 'images/ship_fl_3.png'], {
+            x: 190,
+            y: 6552,
+            alpha: 0
+        })
+        movieClip2.animationSpeed = parseFloat((10 / 280).toFixed(2))
+        con_bg.addChild(movieClip2)
+
+        let movieClip3 = _createAnimateSprite(['images/light_byg_1.png', 'images/light_byg_2.png'], {
+            x: 596,
+            y: 6604,
+            alpha: 0
+        })
+        con_bg.addChild(movieClip3)
+
         new TWEEN.Tween(movieClip)
             .to({
                 alpha: 1,
                 y:6412 * scale
             },2000).start()
+
+        new TWEEN.Tween(movieClip2)
+            .to({
+                alpha: 1,
+            }).start()
     }
 
     //包玉刚对话
@@ -542,7 +661,7 @@ function listenMove() {
 
         let movieClip = _createSprite('images/dialog_bao_2.png', {
             x: 143,
-            y: 7600,
+            y: 7362,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip)
@@ -550,7 +669,7 @@ function listenMove() {
         new TWEEN.Tween(movieClip)
             .to({
                 alpha: 1,
-                y:7579 * scale
+                y:7300 * scale
             },1500).delay(2000).start()
             .onStart(function() {
                 //动画开始回调
@@ -559,7 +678,7 @@ function listenMove() {
 
         let movieClip2 = _createSprite('images/dialog_bao_3.png', {
             x: 445,
-            y: 7585,
+            y: 7347,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip2)
@@ -567,23 +686,42 @@ function listenMove() {
         new TWEEN.Tween(movieClip2)
             .to({
                 alpha: 1,
-                y:7555 * scale
+                y:7317 * scale
             },1500).delay(3500).start()
     }
 
+    //旁白 苏伊士运河
+    if (con_bg.position.y == - 7800 * scale) {
+
+        let movieClip = _createSprite('images/txt_sys.png', {
+            x: 60,
+            y: 8600,
+            alpha: 0.01,
+        })
+        con_bg.addChild(movieClip)
+
+        new TWEEN.Tween(movieClip)
+            .to({
+                alpha: 1,
+                y: 8600 * scale
+            },2000).start()
+
+
+    }
+
     //路灯、报纸
-    if (con_bg.position.y == - 8400 * scale) {
+    if (con_bg.position.y == - 8162 * scale) {
 
         let movieClip = _createAnimateSprite(['images/bulb_1.png', 'images/bulb_2.png'], {
             x: 50,
-            y: 9375,
+            y: 9137,
             alpha: 0
         })
         con_bg.addChild(movieClip)
 
         let movieClip2 = _createSprite('images/newspaper.png', {
             x: 34,
-            y: 9300,
+            y: 9062,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip2)
@@ -591,7 +729,7 @@ function listenMove() {
         new TWEEN.Tween(movieClip2)
             .to({
                 alpha: 1,
-                y:9430 * scale,
+                y:9192 * scale,
                 x: 64 * scale
             },2000).delay(1500).start()
 
@@ -600,18 +738,18 @@ function listenMove() {
 
 
     //卖报纸人
-    if (con_bg.position.y == - 9050 * scale) {
+    if (con_bg.position.y == - 8812 * scale) {
 
         let movieClip = _createAnimateSprite(['images/ppl_paper_1.png', 'images/ppl_paper_2.png'], {
             x: 650,
-            y: 9657,
+            y: 9419,
             alpha: 0
         })
         con_bg.addChild(movieClip)
 
         let movieClip2 = _createSprite('images/dialog_paper.png', {
             x: 320,
-            y: 10025,
+            y: 9787,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip2)
@@ -620,7 +758,7 @@ function listenMove() {
             .to({
                 alpha: 1,
                 x: 200 * scale,
-                y: 10000 * scale
+                y: 9762 * scale
             },3000).start()
             .onStart(function() {
                 //动画开始回调
@@ -630,7 +768,7 @@ function listenMove() {
         new TWEEN.Tween(movieClip2)
             .to({
                 alpha: 1,
-                y:9985 * scale
+                y:9746 * scale
             },2000).delay(2500).start()
 
 
@@ -638,18 +776,18 @@ function listenMove() {
     }
 
     //人群
-    if (con_bg.position.y == - 9720 * scale) {
+    if (con_bg.position.y == - 9482 * scale) {
 
         let movieClip = _createAnimateSprite(['images/ppl_crowd_1.png', 'images/ppl_crowd_2.png'], {
             x: 25,
-            y: 10438,
+            y: 10200,
             alpha: 0.1
         })
         con_bg.addChild(movieClip)
 
         let movieClip2 = _createSprite('images/dialog_paper_2.png', {
             x: 153,
-            y: 10394,
+            y: 10156,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip2)
@@ -666,31 +804,31 @@ function listenMove() {
         new TWEEN.Tween(movieClip2)
             .to({
                 alpha: 1,
-                y:10384 * scale
+                y:10146 * scale
             },2000).delay(1500).start()
 
     }
 
     //码头
-    if (con_bg.position.y == - 10400* scale) {
+    if (con_bg.position.y == - 10162* scale) {
 
         let movieClip3 = _createSprite('images/net.png', {
             x: 232,
-            y: 11241,
+            y: 11003,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip3)
 
         let movieClip = _createAnimateSprite(['images/ppl_black_b_1.png', 'images/ppl_black_b_2.png'], {
             x: 360,
-            y: 11519,
+            y: 11281,
             alpha: 0.1
         })
         con_bg.addChild(movieClip)
 
         let movieClip2 = _createSprite('images/dialog_fail.png', {
             x: 404,
-            y: 11406,
+            y: 11168,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip2)
@@ -708,7 +846,7 @@ function listenMove() {
         new TWEEN.Tween(movieClip2)
             .to({
                 alpha: 1,
-                y:11356 * scale
+                y:11118 * scale
             },2000).delay(1500).start()
 
         new TWEEN.Tween(movieClip3)
@@ -721,35 +859,35 @@ function listenMove() {
 
 
     //人群赞赏
-    if (con_bg.position.y == - 11580 * scale) {
+    if (con_bg.position.y == - 11262 * scale) {
 
         let movieClip = _createAnimateSprite(['images/ppl_good_a_1.png', 'images/ppl_good_a_2.png'], {
             x: 126,
-            y: 12488,
+            y: 12250,
             alpha: 0.1
         })
 
         let movieClip2 = _createSprite('images/ppl_good_b.png', {
             x: 290,
-            y: 12486,
+            y: 12248,
             alpha: 0.01,
         })
 
         let movieClip3 = _createSprite('images/ppl_good_c.png', {
             x: 455,
-            y: 12570,
+            y: 12332,
             alpha: 0.01,
         })
 
-        let movieClip4 = _createSprite('images/ppl_good_d.png', {
+        let movieClip4 = _createAnimateSprite(['images/ppl_yellow_1.png', 'images/ppl_yellow_2.png'], {
             x: 350,
-            y: 12378,
+            y: 12140,
             alpha: 0.01,
         })
 
         let movieClip5 = _createSprite('images/ppl_good_e.png', {
-            x: 496,
-            y: 12223,
+            x: 486,
+            y: 12085,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip5)
@@ -760,14 +898,14 @@ function listenMove() {
 
         let movieClip6 = _createSprite('images/dialog_good_1.png', {
             x: 48,
-            y: 12382,
+            y: 12144,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip6)
 
         let movieClip7 = _createSprite('images/dialog_good_2.png', {
             x: 295,
-            y: 12233,
+            y: 11995,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip7)
@@ -776,6 +914,10 @@ function listenMove() {
             .to({
                 alpha: 1,
             }).start()
+            .onStart(function() {
+                //动画开始回调
+                sound09.play()
+            })
 
         new TWEEN.Tween(movieClip2)
             .to({
@@ -800,23 +942,23 @@ function listenMove() {
         new TWEEN.Tween(movieClip6)
             .to({
                 alpha: 1,
-                y: 12362 * scale
+                y: 12124 * scale
             },1000).delay(200).start()
 
         new TWEEN.Tween(movieClip7)
             .to({
                 alpha: 1,
-                y: 12223 * scale
+                y: 11915 * scale
             }).delay(1500).start()
 
     }
 
     //合同飘下
-    if (con_bg.position.y == - 11688 * scale) {
+    if (con_bg.position.y == - 11450 * scale) {
 
         let movieClip = _createSprite('images/contract_1.png', {
             x: 38,
-            y: 12259,
+            y: 12021,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip)
@@ -824,17 +966,17 @@ function listenMove() {
         new TWEEN.Tween(movieClip)
             .to({
                 alpha: 1,
-                y:12299 * scale
+                y:12061 * scale
             },2000).start()
 
     }
 
     //合同飘下2
-    if (con_bg.position.y == - 12250 * scale) {
+    if (con_bg.position.y == - 12012 * scale) {
 
         let movieClip = _createSprite('images/contract_2.png', {
             x: 100,
-            y: 13000,
+            y: 12762,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip)
@@ -842,17 +984,17 @@ function listenMove() {
         new TWEEN.Tween(movieClip)
             .to({
                 alpha: 1,
-                y:13150 * scale
+                y:12912 * scale
             },3000).start()
 
     }
 
     //包玉刚拿合同前，船开出
-    if (con_bg.position.y == - 12600 * scale) {
+    if (con_bg.position.y == - 12362 * scale) {
 
         let movieClip = _createSprite('images/boat.png', {
             x: -600,
-            y: 13620,
+            y: 13382,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip)
@@ -866,11 +1008,11 @@ function listenMove() {
     }
 
     //包玉刚拿合同
-    if (con_bg.position.y == - 12850 * scale) {
+    if (con_bg.position.y == - 12612 * scale) {
 
         let movieClip = _createAnimateSprite(['images/bao_a.png', 'images/bao_b.png', 'images/bao_c.png'], {
             x: 334,
-            y: 13676,
+            y: 13438,
             alpha: 0.1
         })
         movieClip.animationSpeed = parseFloat((10 / 960).toFixed(2))
@@ -883,17 +1025,17 @@ function listenMove() {
             }).start()
             .onStart(function() {
                 //动画开始回调
-                sound09.play()
+                sound10.play()
             })
 
     }
 
     //旁白03
-    if (con_bg.position.y == - 13560 * scale) {
+    if (con_bg.position.y == - 13322 * scale) {
 
         let movieClip = _createSprite('images/txt_03.png', {
             x: 47,
-            y: 14430,
+            y: 14192,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip)
@@ -901,21 +1043,21 @@ function listenMove() {
         new TWEEN.Tween(movieClip)
             .to({
                 alpha: 1,
-                y: 14460 * scale
+                y: 14222 * scale
             },2000).start()
             .onStart(function() {
                 //动画开始回调
-                sound10.play()
+                sound11.play()
             })
 
     }
 
     //包玉刚发光
-    if (con_bg.position.y == - 14710 * scale) {
+    if (con_bg.position.y == - 14472 * scale) {
 
         let movieClip = _createAnimateSprite(['images/light_1.png', 'images/light_2.png'], {
             x: 90,
-            y: 15520,
+            y: 15282,
             alpha: 0.1
         })
         movieClip.animationSpeed = parseFloat((10 / 240).toFixed(2))
@@ -930,11 +1072,11 @@ function listenMove() {
     }
 
     //旁白04
-    if (con_bg.position.y == - 15742 * scale) {
+    if (con_bg.position.y == - 15504 * scale) {
 
         let movieClip = _createSprite('images/txt_04.png', {
             x: 60,
-            y: 16742,
+            y: 16504,
             alpha: 0.01,
         })
         con_bg.addChild(movieClip)
@@ -942,30 +1084,40 @@ function listenMove() {
         new TWEEN.Tween(movieClip)
             .to({
                 alpha: 1,
-                y: 16842 * scale
+                y: 16604 * scale
             },2000).start()
+            .onStart(function() {
+                //动画开始回调
+                sound12.play()
+            })
 
 
     }
 
 
 
-    //旁白05
-    if (con_bg.position.y == - 16542 * scale) {
+    //end
+    if (con_bg.position.y == - 16304 * scale) {
 
-        let movieClip = _createSprite('images/txt_05.png', {
-            x: 85,
-            y: 17514,
-            alpha: 0.01,
+
+        let movieClip = _createAnimateSprite(['images/light_end_1.png', 'images/light_end_2.png'], {
+            x: 90,
+            y: 16926,
+            alpha: 0.1
         })
+        movieClip.animationSpeed = parseFloat((10 / 240).toFixed(2))
         con_bg.addChild(movieClip)
+
 
         new TWEEN.Tween(movieClip)
             .to({
                 alpha: 1,
-                y: 17614 * scale
+                y: 16926 * scale
             },2000).start()
-
+            .onStart(function() {
+                //动画开始回调
+                sound13.play()
+            })
 
     }
 
@@ -985,4 +1137,66 @@ function playAudio() {
         play()
     }, false)
     document.addEventListener('touchstart', play, false)
+}
+
+function wxShare(model, fn) {
+    const {
+        title: title = '',
+        desc: desc = '',
+        link: link = '',
+        image: image = '',
+    } = model;
+    $.ajax({
+
+        type: "GET",
+        url: "http://h5.anniecathy.com/jssdk/index.php",
+        data: {
+            url: location.href
+        },
+        dataType: "json",
+        success: function(Data){
+            wx.config({
+                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: Data.appId, // 必填，公众号的唯一标识
+                timestamp: Data.timestamp, // 必填，生成签名的时间戳
+                nonceStr: Data.nonceStr, // 必填，生成签名的随机串
+                signature: Data.signature, // 必填，签名，见附录1
+                jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            });
+        }
+
+    });
+    wx.ready(() => {
+        // 所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，
+        // 则可以直接调用，不需要放在ready函数中。
+        wx.onMenuShareAppMessage({ // 分享给朋友
+            title, // 分享标题
+            desc, // 分享描述
+            link, // 分享链接 默认以当前链接
+            imgUrl: image, // 分享图标
+            // 用户确认分享后执行的回调函数
+            success() {
+                return typeof fn === 'function' && fn();
+            },
+            // 用户取消分享后执行的回调函数
+            cancel() {
+                console.log('分享到朋友取消');
+            },
+        });
+        // 分享到朋友圈
+        wx.onMenuShareTimeline({
+            title, // 分享标题
+            desc,
+            link, // 分享链接 默认以当前链接
+            imgUrl: image, // 分享图标
+            // 用户确认分享后执行的回调函数
+            success() {
+                return typeof fn === 'function' && fn();
+            },
+            // 用户取消分享后执行的回调函数
+            cancel() {
+                console.log('分享到朋友圈取消');
+            },
+        });
+    });
 }
