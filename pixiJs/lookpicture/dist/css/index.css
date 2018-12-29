@@ -40,7 +40,7 @@ canvas {background-color: #222222;}
     width: 6.4rem;
     height: 100vh;
     padding-top: 4.1rem;
-    background: rgba(0,0, 0, .5) url("../images/adv.jpg") center no-repeat;
+    background: rgba(0,0, 0, 1) url("../images/adv.jpg") center no-repeat;
     background-size: 6.4rem 10.71rem;
 }
 
