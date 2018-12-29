@@ -1,0 +1,33 @@
+.page{
+    width: 6.4rem;
+    min-height: 100vh;
+    padding-top: 3rem;
+    background: #f56936 url("../images/bg.jpg") no-repeat;
+    background-size: 6.4rem 10.29rem;
+}
+.group{
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    margin: 0 .5rem;
+}
+.group .item{
+    width: 1.37rem;
+    font-size: 0;
+    margin: 0 .6rem .4rem 0;
+
+}
+.group .item p{
+    margin-top: .05rem;
+    text-align: center;
+    font-size: .24rem;
+    color: #ffffff;
+}
+.group .item:nth-child(3n){
+    margin-right: 0;
+}
+.group .item img{
+    width: 1.37rem;
+    height: 1.37rem;
+    border-radius: .1rem;
+}

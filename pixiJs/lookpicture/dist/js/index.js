@@ -168,6 +168,35 @@ let sound13 = new Howl({
     preload: true
 });
 
+let soundx1 = new Howl({
+    src: 'mp3/x1.mp3',
+    preload: true
+});
+
+let soundbg02 = new Howl({
+    src: 'mp3/bg02.mp3',
+    preload: true,
+    loop: true
+});
+
+let soundbg03 = new Howl({
+    src: 'mp3/bg03.mp3',
+    preload: true,
+    loop: true
+});
+
+let soundbg04 = new Howl({
+    src: 'mp3/bg04.mp3',
+    preload: true,
+    loop: true
+});
+
+let soundbg05 = new Howl({
+    src: 'mp3/bg05.mp3',
+    preload: true,
+    loop: true
+});
+
 
 let screen_H = $(window).height() //屏幕高度
 let screen_W = 640 * window.adaptive.newBase / 100 //屏幕宽度
@@ -205,8 +234,8 @@ $(function () {
    progressInit();
    init();
     wxShare({
-        title: '告别2018，全新2019，为传奇，肃然起敬',
-        desc: '元旦特辑 | 跨越100年，致敬城市传奇人物摘要：告别2018，全新2019，为传奇，肃然起敬',
+        title: '元旦特辑 | 跨越100年，致敬城市传奇人物',
+        desc: '告别2018，全新2019，为传奇，肃然起敬',
         image: 'http://baoyugang.anniecathy.com/images/share.jpg',
         link: window.location.href,
     });
@@ -540,6 +569,11 @@ function listenMove() {
                 alpha: 1,
                 y:4515 * scale
             },3500).start()
+            .onStart(function() {
+                //动画开始回调
+                $('#myAudio')[0].pause()
+                soundbg02.play()
+            })
     }
 
     //黑船
@@ -666,11 +700,20 @@ function listenMove() {
                 alpha: 1,
                 y:6412 * scale
             },2000).start()
+            .onStart(function() {
+                //动画开始回调
+                soundx1.play()
+            })
 
         new TWEEN.Tween(movieClip2)
             .to({
                 alpha: 1,
             }).start()
+            .onStart(function() {
+                //动画开始回调
+                soundbg02.pause()
+                soundbg03.play()
+            })
     }
 
     //包玉刚对话
@@ -752,6 +795,11 @@ function listenMove() {
                 y:9192 * scale,
                 x: 64 * scale
             },2000).delay(1500).start()
+            .onStart(function() {
+                //动画开始回调
+                soundbg03.pause()
+                soundbg04.play()
+            })
 
 
     }
@@ -940,6 +988,8 @@ function listenMove() {
             }).start()
             .onStart(function() {
                 //动画开始回调
+                soundbg04.pause()
+                soundbg05.play()
                 sound09.play()
             })
 
