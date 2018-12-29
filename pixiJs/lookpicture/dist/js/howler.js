@@ -465,7 +465,6 @@
      */
     init: function(o) {
       var self = this;
-      console.log(self)
       // If we don't have an AudioContext created yet, run the setup.
       if (!Howler.ctx) {
         setupAudioContext();
@@ -2348,7 +2347,7 @@
 
 /*!
  *  Spatial Plugin - Adds support for stereo and 3D audio where Web Audio is supported.
- *  
+ *
  *  howler.js v2.0.14
  *  howlerjs.com
  *

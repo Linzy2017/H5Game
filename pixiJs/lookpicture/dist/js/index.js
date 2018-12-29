@@ -101,6 +101,7 @@ const imagesGroup = [
     'images/light_end_2.png',
     'images/light_jjch_1.png',
     'images/light_jjch_2.png',
+    'images/end_btn.jpg',
 ]
 let sound01 = new Howl({
     src: 'mp3/1.mp3',
@@ -217,6 +218,9 @@ function init() {
         .on("progress", loadProgressHandler)
         .load(setup);
 
+    $('.adv').on('click', function () {
+        $(this).hide();
+    })
     //阻止长按菜单行为
     window.document.oncontextmenu = function (e) {
         e.preventDefault();
@@ -318,6 +322,7 @@ function _createAnimateSprite(sourceGroup, params) {
     return movieClip
 }
 
+let recodeY = [];
 
 //设置背景位移高度
 function setBgY(num) {
@@ -334,7 +339,8 @@ function listenMove() {
     }
 
     //旁白01
-    if (con_bg.position.y == - 50 * scale) {
+    if (con_bg.position.y <= - 50 * scale && !recodeY[0]) {
+        recodeY.push(con_bg.position.y);
         let movieClip = _createSprite('images/txt_01.png', {
             x: 100,
             y: 900,
@@ -347,10 +353,13 @@ function listenMove() {
                 alpha: 1,
                 y:992 * scale
             },2000).start()
+
+
     }
 
     //士兵开火
-    if (con_bg.position.y == - 800 * scale) {
+    if (con_bg.position.y <= - 800 * scale && !recodeY[1]) {
+        recodeY.push(con_bg.position.y);
         let movieClip = _createAnimateSprite(['images/nnns_a_1.png', 'images/nnns_a_2.png','images/nnns_a_3.png','images/nnns_a_4.png','images/nnns_a_5.png'], {
             x: -100,
             y: 1660,
@@ -420,7 +429,8 @@ function listenMove() {
 
 
     //旁白2
-    if (con_bg.position.y == - 1650 * scale) {
+    if (con_bg.position.y <= - 1650 * scale && !recodeY[2]) {
+        recodeY.push(con_bg.position.y);
         let movieClip = _createSprite('images/txt_02.png', {
             x: 169,
             y: 2500,
@@ -441,7 +451,8 @@ function listenMove() {
 
 
     //禁止标识
-    if (con_bg.position.y == - 2000 * scale) {
+    if (con_bg.position.y <= - 2000 * scale && !recodeY[3]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip2 = _createSprite('images/ico_close.png', {
             x: 250,
@@ -474,7 +485,8 @@ function listenMove() {
     }
 
     //士兵说话，禁行
-    if (con_bg.position.y == - 2500 * scale) {
+    if (con_bg.position.y <= - 2500 * scale && !recodeY[4]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/dialog_01.png', {
             x: 230,
@@ -506,7 +518,8 @@ function listenMove() {
     }
 
     //元宝
-    if (con_bg.position.y == - 3400 * scale) {
+    if (con_bg.position.y <= - 3400 * scale && !recodeY[5]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/ico_money.png', {
             x: 96,
@@ -530,7 +543,8 @@ function listenMove() {
     }
 
     //黑船
-    if (con_bg.position.y == - 3900 * scale) {
+    if (con_bg.position.y <= - 3900 * scale && !recodeY[6]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createAnimateSprite(['images/ship_black_a_1.png', 'images/ship_black_a_2.png'], {
             x: 640,
@@ -566,7 +580,8 @@ function listenMove() {
     }
 
     //白船
-    if (con_bg.position.y == - 4400 * scale) {
+    if (con_bg.position.y <= - 4400 * scale && !recodeY[7]) {
+        recodeY.push(con_bg.position.y);
 
 
         let movieClip = _createAnimateSprite(['images/ship_white_a_1.png', 'images/ship_white_a_2.png'], {
@@ -603,7 +618,8 @@ function listenMove() {
     }
 
     //绿人左
-    if (con_bg.position.y == - 5200 * scale) {
+    if (con_bg.position.y <= - 5200 * scale && !recodeY[8]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createAnimateSprite(['images/ppl_a_1.png', 'images/ppl_a_2.png'], {
             x: -25,
@@ -620,7 +636,8 @@ function listenMove() {
     }
 
     //包玉刚心理活动
-    if (con_bg.position.y == - 5600 * scale) {
+    if (con_bg.position.y <= - 5600 * scale && !recodeY[9]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/dialog_bao_1.png', {
             x: 255,
@@ -657,7 +674,8 @@ function listenMove() {
     }
 
     //包玉刚对话
-    if (con_bg.position.y == - 6000 * scale) {
+    if (con_bg.position.y <= - 6000 * scale && !recodeY[10]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/dialog_bao_2.png', {
             x: 143,
@@ -691,7 +709,8 @@ function listenMove() {
     }
 
     //旁白 苏伊士运河
-    if (con_bg.position.y == - 7800 * scale) {
+    if (con_bg.position.y <= - 7800 * scale && !recodeY[11]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/txt_sys.png', {
             x: 60,
@@ -710,7 +729,8 @@ function listenMove() {
     }
 
     //路灯、报纸
-    if (con_bg.position.y == - 8162 * scale) {
+    if (con_bg.position.y <= - 8162 * scale && !recodeY[12]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createAnimateSprite(['images/bulb_1.png', 'images/bulb_2.png'], {
             x: 50,
@@ -738,7 +758,8 @@ function listenMove() {
 
 
     //卖报纸人
-    if (con_bg.position.y == - 8812 * scale) {
+    if (con_bg.position.y <= - 8812 * scale && !recodeY[13]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createAnimateSprite(['images/ppl_paper_1.png', 'images/ppl_paper_2.png'], {
             x: 650,
@@ -776,7 +797,8 @@ function listenMove() {
     }
 
     //人群
-    if (con_bg.position.y == - 9482 * scale) {
+    if (con_bg.position.y <= - 9482 * scale && !recodeY[14]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createAnimateSprite(['images/ppl_crowd_1.png', 'images/ppl_crowd_2.png'], {
             x: 25,
@@ -810,7 +832,8 @@ function listenMove() {
     }
 
     //码头
-    if (con_bg.position.y == - 10162* scale) {
+    if (con_bg.position.y <= - 10162* scale && !recodeY[15]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip3 = _createSprite('images/net.png', {
             x: 232,
@@ -859,7 +882,8 @@ function listenMove() {
 
 
     //人群赞赏
-    if (con_bg.position.y == - 11262 * scale) {
+    if (con_bg.position.y <= - 11262 * scale && !recodeY[16]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createAnimateSprite(['images/ppl_good_a_1.png', 'images/ppl_good_a_2.png'], {
             x: 126,
@@ -954,7 +978,8 @@ function listenMove() {
     }
 
     //合同飘下
-    if (con_bg.position.y == - 11450 * scale) {
+    if (con_bg.position.y <= - 11450 * scale && !recodeY[17]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/contract_1.png', {
             x: 38,
@@ -972,7 +997,8 @@ function listenMove() {
     }
 
     //合同飘下2
-    if (con_bg.position.y == - 12012 * scale) {
+    if (con_bg.position.y <= - 12012 * scale && !recodeY[18]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/contract_2.png', {
             x: 100,
@@ -990,7 +1016,8 @@ function listenMove() {
     }
 
     //包玉刚拿合同前，船开出
-    if (con_bg.position.y == - 12362 * scale) {
+    if (con_bg.position.y <= - 12362 * scale && !recodeY[19]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/boat.png', {
             x: -600,
@@ -1008,7 +1035,8 @@ function listenMove() {
     }
 
     //包玉刚拿合同
-    if (con_bg.position.y == - 12612 * scale) {
+    if (con_bg.position.y <= - 12612 * scale && !recodeY[20]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createAnimateSprite(['images/bao_a.png', 'images/bao_b.png', 'images/bao_c.png'], {
             x: 334,
@@ -1031,7 +1059,8 @@ function listenMove() {
     }
 
     //旁白03
-    if (con_bg.position.y == - 13322 * scale) {
+    if (con_bg.position.y <= - 13322 * scale && !recodeY[21]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/txt_03.png', {
             x: 47,
@@ -1053,7 +1082,8 @@ function listenMove() {
     }
 
     //包玉刚发光
-    if (con_bg.position.y == - 14472 * scale) {
+    if (con_bg.position.y <= - 14472 * scale && !recodeY[22]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createAnimateSprite(['images/light_1.png', 'images/light_2.png'], {
             x: 90,
@@ -1072,7 +1102,8 @@ function listenMove() {
     }
 
     //旁白04
-    if (con_bg.position.y == - 15504 * scale) {
+    if (con_bg.position.y <= - 15504 * scale && !recodeY[23]) {
+        recodeY.push(con_bg.position.y);
 
         let movieClip = _createSprite('images/txt_04.png', {
             x: 60,
@@ -1097,7 +1128,8 @@ function listenMove() {
 
 
     //end
-    if (con_bg.position.y == - 16304 * scale) {
+    if (con_bg.position.y <= - 16304 * scale && !recodeY[24]) {
+        recodeY.push(con_bg.position.y);
 
 
         let movieClip = _createAnimateSprite(['images/light_end_1.png', 'images/light_end_2.png'], {
@@ -1107,6 +1139,19 @@ function listenMove() {
         })
         movieClip.animationSpeed = parseFloat((10 / 240).toFixed(2))
         con_bg.addChild(movieClip)
+
+
+        let movieClip2 = _createSprite('images/end_btn.jpg', {
+            x: 100,
+            y: 17404,
+            alpha: 0.1,
+        })
+        movieClip2.interactive = true;
+        movieClip2.buttonMode = true;
+        movieClip2.on('pointerdown', function () {
+            $('.adv').show();
+        })
+        con_bg.addChild(movieClip2)
 
 
         new TWEEN.Tween(movieClip)
@@ -1125,6 +1170,7 @@ function listenMove() {
 
 function playAudio() {
     let audio= $('#myAudio')[0]
+    audio.load();
     let play = () => {
         audio.play()
         document.removeEventListener('touchstart', play, false)
@@ -1149,14 +1195,15 @@ function wxShare(model, fn) {
     $.ajax({
 
         type: "GET",
-        url: "http://h5.anniecathy.com/jssdk/index.php",
+        url: "https://ticket.anniecathy.com/c/wechat/config",
         data: {
             url: location.href
         },
         dataType: "json",
-        success: function(Data){
+        success: function(res){
+            let Data = res.data
             wx.config({
-                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                 appId: Data.appId, // 必填，公众号的唯一标识
                 timestamp: Data.timestamp, // 必填，生成签名的时间戳
                 nonceStr: Data.nonceStr, // 必填，生成签名的随机串
